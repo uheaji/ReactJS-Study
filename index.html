@@ -8,26 +8,25 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     const root = document.getElementById("root");
+    let counter = 0;
+    function countUp() {
+      counter = counter + 1;
+      render();
+    }
+
+    function render() {
+      ReactDOM.render(<Container />, root); // counter만 업데이트된다. vanilla코드는 전부 렌더링됨!
+    }
+
     // 컴포넌트의 첫글자는 대문자여야한다.
-    function Title() {
+    function Container() {
       return (
-        <h3 id="title" onMouseEnter={() => console.log("mouseEnter")}>
-          Hello I'm title
-        </h3>
+        <div>
+          <h3>Total clicks: {counter}</h3>
+          <button onClick={countUp}>Click me</button>
+        </div>
       );
     }
-    const Button = () => (
-      <button onClick={() => console.log("I'm clicked.")} style={{ backgroundColor: "tomato" }}>
-        Click me
-      </button>
-    );
-    const Container = () => (
-      <div>
-        <Title />
-        <Button />
-      </div>
-    );
-
-    ReactDOM.render(<Container />, root);
+    render();
   </script>
 </html>
